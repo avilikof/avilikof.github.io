@@ -10,6 +10,7 @@ function getName() {
     let userAnswer = prompt('Type your name');
     if (userAnswer) {
         // User must confirm that his name is correct;
+        confirmName(userAnswer);
     } else {
         alert('This filed cannot be blank !!!');
         getName();
