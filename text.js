@@ -4,16 +4,25 @@ let ALERT = 'ALERT';
 const myPar = document.querySelector('p');
 const myHeading = document.querySelector('h1');
 
-let userAnswer = prompt('Type your name');
-let result;
-result = confirm(`Is your name ${userAnswer}?`);
-
 myHeading.textContent = HELLO_WOLRD;
 
-if (result) {
-    myPar.textContent = `Hello ${userAnswer}`;
-} else {
-    myPar.textContent = 'I don\' know you.';
+function getName() {
+    let userAnswer = prompt('Type your name');
+    if (userAnswer) {
+        // User must confirm that his name is correct;
+    } else {
+        alert('This filed cannot be blank !!!');
+        getName();
+    }
 }
 
-// document.write(HELLO_WOLRD + ' From var');
+function confirmName(userName) {
+    let confirmName = confirm(`Is your name correct? ${userName}`);
+    if (confirmName) {
+        myPar.textContent = `Hi ${userName}`;
+    } else {
+        myPar.textContent = 'Hello STRANGER!';
+    }
+}
+
+getName();
