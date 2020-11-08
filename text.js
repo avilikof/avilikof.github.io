@@ -7,23 +7,33 @@ const myHeading = document.querySelector('h1');
 myHeading.textContent = HELLO_WOLRD;
 
 function getName() {
-    let userAnswer = prompt('Type your name');
-    if (userAnswer) {
-        // User must confirm that his name is correct;
-        confirmName(userAnswer);
+    let userAnswer;
+    if (!localStorage.getItem('name')) {
+        userAnswer = prompt('Provide your name');
+        if (userAnswer === null) {
+            alert('Name cannot be blank!');
+            getName();
+        } else {
+            localStorage.setItem('name', userAnswer);
+            confirmName(localStorage.getItem('name'));
+        }
     } else {
-        alert('This filed cannot be blank !!!');
-        getName();
+        confirmName(localStorage.getItem('name'));
     }
 }
 
 function confirmName(userName) {
-    let confirmName = confirm(`Is your name correct? ${userName}`);
-    if (confirmName) {
-        myPar.textContent = `Hi ${userName}`;
+    if (confirm(`Is your name really is ${userName} ?`)) {
+        myPar.textContent = `Hi ${localStorage.getItem('name')}`;
     } else {
-        myPar.textContent = 'Hello STRANGER!';
+        alert('Hello STRANGER!');
+        alert('Let\'s get know each other!');
+        localStorage.removeItem('name');
+        getName();
     }
 }
 
 getName();
+if (localStorage.getItem('name') === null) {
+    localStorage.removeItem('name');
+}
